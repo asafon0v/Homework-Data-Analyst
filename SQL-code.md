@@ -15,4 +15,13 @@ FROM Rooms
 JOIN  Reservations  
     ON Rooms.id = Reservations.room_id  
 WHERE WEEK(start_date, 1) = 12 AND YEAR(start_date) = 2020;  
-
+## Задача 4
+SELECT classroom  
+FROM Schedule  
+GROUP BY classroom  
+HAVING COUNT(classroom) =  
+    (SELECT COUNT(classroom)   
+     FROM Schedule   
+     GROUP BY classroom  
+     ORDER BY COUNT(classroom) DESC   
+     LIMIT 1)  
