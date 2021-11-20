@@ -25,3 +25,6 @@ HAVING COUNT(classroom) =
      GROUP BY classroom  
      ORDER BY COUNT(classroom) DESC   
      LIMIT 1)  
+## Задача 5
+WITH distinct_dates as (SELECT DISTINCT date from income_o), intervals as (SELECT date dt1, LEAD(date) OVER (ORDER BY date) as dt2 FROM distinct_dates)   
+SELECT coalesce(sum(out), 0), dt1, dt2 FROM intervals LEFT JOIN Outcome_o on Outcome_o.date > dt1 and Outcome_o.date <= dt2 WHERE dt2 is not null GROUP BY dt1, dt2;  
